@@ -1,0 +1,1309 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/users/create": {
+      "post": {
+        "description": "Accepts user data and creates a new user record in the system.",
+        "operationId": "createUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadUserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new user",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/find-by-uuid": {
+      "get": {
+        "description": "Retrieves a user based on the provided UUID parameter.",
+        "operationId": "getByUserUuid",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadUserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Find a user by UUID",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/list": {
+      "get": {
+        "description": "Returns a paginated list of users. Supports optional search by name.",
+        "operationId": "listUsers",
+        "parameters": [
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "dataPerPage",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Users successfully listed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListUserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Could not list users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List users with pagination and search",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/update": {
+      "put": {
+        "description": "Updates the user information for the specified UUID.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadUserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found or invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a user by UUID",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/delete": {
+      "delete": {
+        "description": "Deletes the user associated with the given UUID from the system.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found or could not be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a user by UUID",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "description": "Authenticates a user and returns an access token if credentials are valid.",
+        "operationId": "login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthLoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User logged in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthLoginResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Login",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "description": "Registers a new user and returns an access token upon successful registration.",
+        "operationId": "register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthLoginResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not registered in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Register",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/verify-token": {
+      "get": {
+        "description": "Checks if the provided authentication token is valid and returns user data.",
+        "operationId": "checkToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Token is valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadUserDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Token is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Verify token",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/files/create": {
+      "post": {
+        "description": "Uploads a file and creates a new file record in the system.",
+        "operationId": "createFile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "File successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadFileDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a file",
+        "tags": [
+          "Files"
+        ]
+      }
+    },
+    "/api/v1/audits/list": {
+      "get": {
+        "description": "Retrieves a paginated list of audit records, optionally filtered by search criteria.",
+        "operationId": "listAudits",
+        "parameters": [
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "dataPerPage",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "search",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list error Audits successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAuditsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "list error Audits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List Audits",
+        "tags": [
+          "Audits"
+        ]
+      }
+    },
+    "/api/v1/logs/list": {
+      "get": {
+        "description": "Retrieves a paginated list of error logs, optionally filtered by search criteria.",
+        "operationId": "listLogs",
+        "parameters": [
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "dataPerPage",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "search",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list error logs successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListLogsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "list error logs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List logs",
+        "tags": [
+          "Logs"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Template Api",
+    "description": "The Template API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Template",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "access-token": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "RoleEnum": {
+        "type": "string",
+        "enum": [
+          "ADMIN",
+          "EMPLOYEE",
+          "MANAGER"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name of the user",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the user",
+            "example": "name@email.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password (must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character)",
+            "example": "Teste@123"
+          },
+          "role": {
+            "description": "User role (e.g., ADMIN, USER, etc.)",
+            "example": "ADMIN",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RoleEnum"
+              }
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password",
+          "role"
+        ]
+      },
+      "ReadUserDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "UUID of the user",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the user",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the user",
+            "example": "example@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password (hashed or raw depending on usage)",
+            "example": "Teste@123"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role assigned to the user",
+            "example": "admin"
+          },
+          "roleUuid": {
+            "type": "string",
+            "description": "UUID of the role assigned to the user",
+            "example": "987e6543-e21b-12d3-a456-426614174999"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp when the user was created",
+            "example": "2025-01-01T10:00:00Z",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp when the user was last updated",
+            "example": "2025-02-01T15:00:00Z",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "description": "Timestamp when the user was deleted (if applicable)",
+            "example": "2025-03-01T18:30:00Z",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "uuid",
+          "name",
+          "email",
+          "password",
+          "role",
+          "roleUuid",
+          "createdAt",
+          "updatedAt",
+          "deletedAt"
+        ]
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Detailed description of the error",
+            "example": "Invalid credentials provided"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status code of the error",
+            "example": 401
+          },
+          "statusMessage": {
+            "type": "string",
+            "description": "HTTP status message associated with the error",
+            "example": "UNAUTHORIZED"
+          }
+        },
+        "required": [
+          "message",
+          "statusCode",
+          "statusMessage"
+        ]
+      },
+      "ReadUserListDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "UUID of the user",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the user",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the user",
+            "example": "example@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password (hashed or plain depending on usage)",
+            "example": "Teste@123"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role assigned to the user",
+            "example": "admin"
+          },
+          "roleUuid": {
+            "type": "string",
+            "description": "Role UUID assigned to the user",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp when the user was created",
+            "example": "2025-01-01T10:00:00Z",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp when the user was last updated",
+            "example": "2025-02-01T15:00:00Z",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "description": "Timestamp when the user was deleted (if applicable)",
+            "example": "2025-03-01T18:30:00Z",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "uuid",
+          "name",
+          "email",
+          "password",
+          "role",
+          "roleUuid",
+          "createdAt",
+          "updatedAt",
+          "deletedAt"
+        ]
+      },
+      "ListUserDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "List of audit log entries",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReadUserListDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of audit records available",
+            "example": 42
+          },
+          "actualPage": {
+            "type": "number",
+            "description": "Current page number in the paginated result",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "number",
+            "description": "Total number of pages based on pagination settings",
+            "example": 5
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name of the user",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the user",
+            "example": "name@email.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password (must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character)",
+            "example": "Teste@123"
+          },
+          "role": {
+            "description": "User role (e.g., ADMIN, USER, etc.)",
+            "example": "ADMIN",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RoleEnum"
+              }
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password",
+          "role"
+        ]
+      },
+      "DeleteDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status code of the response"
+          },
+          "message": {
+            "type": "string",
+            "description": "Detailed response message"
+          }
+        },
+        "required": [
+          "success",
+          "statusCode",
+          "message"
+        ]
+      },
+      "AuthLoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address",
+            "example": "example@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password (must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character)",
+            "example": "Teste@123"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "AuthLoginResponseDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "JWT access token used for authenticated requests",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVXVpZCI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImlhdCI6MTYxNjIzOTAyMn0.1"
+          },
+          "user": {
+            "description": "Authenticated user details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReadUserDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "accessToken",
+          "user"
+        ]
+      },
+      "AuthRegisterDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name of the user",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the user",
+            "example": "name@email.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password (must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character)",
+            "example": "Teste@123"
+          },
+          "role": {
+            "description": "User role (e.g., ADMIN, USER, etc.)",
+            "example": "ADMIN",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RoleEnum"
+              }
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password",
+          "role"
+        ]
+      },
+      "CreateFileDto": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "description": "Original name of the uploaded file",
+            "example": "document.pdf"
+          },
+          "mimetype": {
+            "type": "string",
+            "description": "MIME type of the file",
+            "example": "application/pdf"
+          },
+          "path": {
+            "type": "string",
+            "description": "Path where the file is stored",
+            "example": "/uploads/document.pdf"
+          },
+          "size": {
+            "type": "number",
+            "description": "Size of the file in bytes",
+            "example": 204800
+          }
+        }
+      },
+      "ReadFileDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Unique identifier of the file",
+            "example": "c57b8c8f-1e84-4b92-8b0f-96ad76361e89"
+          },
+          "filename": {
+            "type": "string",
+            "description": "Original name of the uploaded file",
+            "example": "document.pdf"
+          },
+          "mimetype": {
+            "type": "string",
+            "description": "MIME type of the file",
+            "example": "application/pdf"
+          },
+          "path": {
+            "type": "string",
+            "description": "Path where the file is stored",
+            "example": "/uploads/document.pdf"
+          },
+          "size": {
+            "type": "number",
+            "description": "Size of the file in bytes",
+            "example": 204800
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date and time when the file was created",
+            "example": "2025-07-22T10:15:30Z",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date and time when the file was last updated",
+            "example": "2025-07-22T10:15:30Z",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "description": "Date and time when the file was deleted (if applicable)",
+            "example": "2025-07-23T14:20:00Z",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "uuid",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ReadAuditsListDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Unique identifier of the audit entry",
+            "example": "a1b2c3d4"
+          },
+          "entity": {
+            "type": "string",
+            "description": "Name of the audited entity (e.g., \"User\", \"Order\")",
+            "example": "User"
+          },
+          "method": {
+            "type": "string",
+            "description": "HTTP method used for the operation",
+            "example": "UPDATE"
+          },
+          "userUuid": {
+            "type": "string",
+            "description": "UUID of the user who performed the action",
+            "example": "u1v2w3x4"
+          },
+          "oldData": {
+            "type": "string",
+            "description": "Data before the change (old state)",
+            "example": "{\"name\": \"Old Name\"}"
+          },
+          "newData": {
+            "type": "string",
+            "description": "Data after the change (new state)",
+            "example": "{\"name\": \"New Name\"}"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL path where the operation occurred",
+            "example": "/api/v1/users/123"
+          },
+          "ip": {
+            "type": "string",
+            "description": "IP address of the client that initiated the request",
+            "example": "192.168.1.10"
+          },
+          "userAgent": {
+            "type": "string",
+            "description": "User agent string from the client",
+            "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date and time when the audit entry was created",
+            "example": "2024-07-22T12:00:00.000Z",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "uuid",
+          "entity",
+          "method",
+          "userUuid",
+          "oldData",
+          "newData",
+          "url",
+          "ip",
+          "userAgent",
+          "createdAt"
+        ]
+      },
+      "ListAuditsDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "List of audit log entries",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReadAuditsListDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of audit records available",
+            "example": 42
+          },
+          "actualPage": {
+            "type": "number",
+            "description": "Current page number in the paginated result",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "number",
+            "description": "Total number of pages based on pagination settings",
+            "example": 5
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "ReadListLogsDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Unique identifier of the log entry",
+            "example": "1"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error message associated with the log",
+            "example": "Something went wrong"
+          },
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP status code returned by the request",
+            "example": 404
+          },
+          "statusText": {
+            "type": "string",
+            "description": "HTTP status text corresponding to the status code",
+            "example": "Not Found"
+          },
+          "method": {
+            "type": "string",
+            "description": "HTTP method used in the request (GET, POST, etc.)",
+            "example": "GET"
+          },
+          "path": {
+            "type": "string",
+            "description": "Request path that triggered the log",
+            "example": "/api/v1/users"
+          },
+          "ip": {
+            "type": "string",
+            "description": "IP address of the client that made the request",
+            "example": "192.168.0.1"
+          },
+          "userAgent": {
+            "type": "string",
+            "description": "User agent string from the request header",
+            "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date and time when the log entry was created",
+            "example": "2023-07-22T12:34:56.789Z",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "uuid",
+          "error",
+          "statusCode",
+          "statusText",
+          "method",
+          "path",
+          "ip",
+          "userAgent",
+          "createdAt"
+        ]
+      },
+      "ListLogsDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "List of log entries",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReadListLogsDto"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of log entries available",
+            "example": 100
+          },
+          "actualPage": {
+            "type": "number",
+            "description": "Current page number in the paginated result",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "number",
+            "description": "Total number of pages based on pagination",
+            "example": 10
+          }
+        }
+      }
+    }
+  }
+}
