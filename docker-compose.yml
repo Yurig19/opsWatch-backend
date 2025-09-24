@@ -16,7 +16,7 @@ services:
 
   app:
     image: node:22
-    container_name: template-backend
+    container_name: opsWatch-backend
     restart: always
     environment:
       DB_USER: admin

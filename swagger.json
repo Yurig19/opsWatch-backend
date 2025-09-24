@@ -659,14 +659,14 @@
     }
   },
   "info": {
-    "title": "Template Api",
-    "description": "The Template API description",
+    "title": "OpsWatch Api",
+    "description": "The OpsWatch API description",
     "version": "1.0",
     "contact": {}
   },
   "tags": [
     {
-      "name": "Template",
+      "name": "OpsWatch",
       "description": ""
     }
   ],

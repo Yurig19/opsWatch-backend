@@ -8,7 +8,7 @@ import { validateEnv } from './core/validations/env.validation';
 import { AuthModule } from './modules/_auth/auth.module';
 import { InitModule } from './modules/_init/init.module';
 import { AuditsModule } from './modules/audits/audits.module';
-import { LogsModule } from './modules/errorLogs/logs.module';
+import { LogsModule } from './modules/errorLogs/logs.module'; 
 import { FileModule } from './modules/files/files.module';
 import { UserModule } from './modules/users/users.module';
 

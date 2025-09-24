@@ -20,10 +20,10 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle('Template Api')
-    .setDescription('The Template API description')
+    .setTitle('OpsWatch Api')
+    .setDescription('The OpsWatch API description')
     .setVersion('1.0')
-    .addTag('Template')
+    .addTag('OpsWatch')
     .addBearerAuth(
       {
         type: 'http',
